@@ -1,6 +1,6 @@
 
 fun main() {
-    val coche1 = Coche()
+    val coche1 = Coche("","","",300,3,"")
 
     try {
         print("Introduce el color del coche: ")
@@ -21,6 +21,4 @@ fun main() {
     } catch (e: Exception) {
         println("")
     }
-
-
 }

@@ -1,4 +1,4 @@
-class Coche {
+class Coche(color:String, marca: String, modelo: String, caballos: Int, puertas: Int, matricula: String) {
     private var color:String = ""
     private var marca:String = ""
     private var modelo: String = ""
@@ -11,7 +11,7 @@ class Coche {
     }
 
     fun setColor(color:String) {
-        if (color.isNotEmpty()) this.color = color
+        if (color.isNotEmpty() && color.isNotBlank()) this.color = color
     }
 
     private fun getMarca() = this.marca.uppercase()
