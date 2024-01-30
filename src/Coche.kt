@@ -1,69 +1,55 @@
-class Coche(color:String, marca: String, modelo: String, caballos: Int, puertas: Int, matricula: String) {
-    private var color:String = ""
-    private var marca:String = ""
-    private var modelo: String = ""
-    private var caballos:Int = 0
-    private var puertas:Int = 0
-    private var matricula:String = ""
-
-    private fun getColor():String {
-        return this.color.uppercase()
-    }
-
-    fun setColor(color:String) {
-        if (color.isNotEmpty() && color.isNotBlank()) this.color = color
-    }
-
-    private fun getMarca() = this.marca.uppercase()
-
-    fun setMarca(marca:String) {
-        if (marca.isNotEmpty()) this.marca = marca
-    }
-
-    private fun getModelo() = this.modelo.uppercase()
-
-    fun setModelo(modelo:String) {
-        if (modelo.isNotEmpty()) this.modelo = modelo
-    }
-
-    private fun getCaballos() = this.caballos
-
-    fun setCaballos(caballos:String) {
-        try {
-            if (caballos.toInt() !in 70..700) {
-                println("Los caballos deben ser mayor a 70 y menor a 700.")
-                print("Introduce los caballos del coche: ")
-                this.setCaballos(readln())
-            }
-            else this.caballos = caballos.toInt()
-        } catch (e:Exception) {
-            println("Los caballos introducidos no son válidos.")
-            print("Introduce los caballos del coche: ")
-            this.setCaballos(readln())
+/**
+ * Clase coche con todos
+ * @param color :String? color del coche
+ * @param marca :String? marca del coche
+ * @param modelo :String? modelo del coche
+ * @param caballos :String? numero de caballos que tiene el coche
+ * @param puertas :string? numero de puertas que tiene el coche
+ * @param matricula :String matricula del coche
+ */
+class Coche(color:String?, marca: String?, modelo: String?, caballos: Int?, puertas: Int?, matricula: String) {
+     var color:String? = color
+        set(value) {
+            require(!value.isNullOrBlank()) { "Color no puede ser nulo ni estar vacio." }
+            field = value
         }
+    var marca:String? = marca
+        get() = field?.replaceFirstChar { it.uppercase() }
+        set(value) {
+            require(!value.isNullOrBlank()) { "La marca no pueden ser un nulo o estar vacío." }
+            field = value
+        }
+    var modelo: String? = modelo
+        set(value) {
+            require(!this.modelo.isNullOrBlank()) { "El modelo no pueden ser un nulo o estar vacío." }
+            field = value
+        }
+    val caballos:Int? = caballos
+    val puertas:Int? = puertas
+    val matricula:String = matricula
 
+    init {
+        require(this.matricula.length == 7) {"La matricula debe constar de 7 caracteres."}
+        require(this.caballos in 70..700) {"El número de caballos debe estar entre 70 y 700"}
+        require(this.puertas in 3..5) {"El número de puertas debe estar entre 3 y 5"}
+        require(!this.marca.isNullOrBlank() || !this.modelo.isNullOrBlank()) {"La marca o el modelo no pueden ser un nulo o estar vacío."}
     }
 
-    private fun getPuertas() = this.puertas
+
+    fun setCaballos(caballos:Int) {
+        require(caballos in 70..700) { "El número de caballos debe estar entre 70 y 700" }
+    }
+
 
     fun setPuertas(puertas:String) {
-        try {
-            require(puertas.toInt() in 3..5) {"Las puertas no puede ser inferior a 3 ni mayor a 5."}
-            this.puertas = puertas.toInt()
-        } catch (e: Exception) {
-            println("Las puertas no puede ser inferior a 3 ni mayor a 5.")
-            print("Introduce las puertas del coche: ")
-            this.setPuertas(readln())
-        }
+        require(puertas.toInt() in 3..5) {"Las puertas no puede ser inferior a 3 ni mayor a 5."}
     }
 
-    private fun getMatricula() = this.matricula.uppercase()
 
     fun setMatricula(matricula:String) {
-        if (matricula.isNotEmpty()) this.matricula = matricula
+        require(matricula.length != 7) {"La matricula debe constar de 7 caracteres."}
     }
 
-    override fun toString() = "Este coche es un ${this.getMarca()} ${this.getModelo()} de color ${this.getColor()}, con ${this.getCaballos()} caballos de potencia, ${this.getPuertas()} puertas y con mátricula ${this.getMatricula()}"
-
+    override fun toString() = "Este coche es un ${this.marca} ${this.modelo} de color ${this.color}, con ${this.caballos} caballos de potencia, ${this.puertas} puertas y con mátricula ${this.matricula}"
 
 }
